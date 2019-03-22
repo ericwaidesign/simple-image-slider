@@ -1,0 +1,14 @@
+.simpleImageSlider-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+}
+
+.simpleImageSlider-opacity-0 {
+  opacity: 0;
+}
+
+.simpleImageSlider-opacity_1 {
+  opacity: 1;
+}
