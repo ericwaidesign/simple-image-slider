@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * client/src/components/ImageSlider/ImageSlider.js
  * @author <ericwaidesign@gmail.com>
