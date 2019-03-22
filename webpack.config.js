@@ -1,9 +1,9 @@
 const path = require('path');
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/simple-image-slider.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'ImageSlider.js',
+    filename: 'simple-image-slider.js',
     libraryTarget: 'commonjs2'
   },
   module: {
