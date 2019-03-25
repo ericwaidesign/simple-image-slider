@@ -1,12 +1,12 @@
 /**
- * client/src/components/ImageSlider/ImageSlider.js
+ * simple-image-slider\src\index.js
  * @author <ericwaidesign@gmail.com>
  */
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Constants from './libs/constants';
-import './assets/css/simple-image-slider.css';
+import Constants from './assets/constants';
+import './assets/css/styles.css';
 
 /**
  * @description This class loads the given images and apply 
@@ -38,8 +38,9 @@ class ImageSlider extends Component {
   }
 
   /**
-   * @description Set the CSS class name in state to trigger a 
-   * re-render to update a DOM element's opacity setting to 0.
+   * @description instance property that sets the CSS class name 
+   * in state to trigger a re-render to update a DOM element's 
+   * opacity setting to 0.
    */
   setLowResImgOpacityTo0 = () => {
     // Set class name to change the DOM element opacity to 0.
@@ -126,7 +127,9 @@ class ImageSlider extends Component {
     /* Output each set of images */
     var imageArray = highResImages.map((highResImage, index) => {
       return (
-        <div id={`${Constants.IMAGE_CONTAINER}${index}`}>
+        <div 
+          id={`${Constants.IMAGE_CONTAINER}${index}`}
+          key={`${Constants.IMAGE_CONTAINER}${index}`}>
           {/* Low res placeholder image */}
           <img
             id={`${Constants.LOW_RES}${index}`}
@@ -155,7 +158,7 @@ class ImageSlider extends Component {
 /**
  * @description Default static properties (props) values.
  */
-ImageLoader.defaultProps = {
+ImageSlider.defaultProps = {
   timeoutDuration: Constants.FIVE_THOUSANDS_MILLISECS,
   transitionDuration: Constants.THOUSAND_MILLISECS
 };
@@ -166,11 +169,11 @@ ImageLoader.defaultProps = {
  * static properties can be accessed without instantiate the 
  * class.
  */
-ImageLoader.propTypes = {
+ImageSlider.propTypes = {
   highResImages: PropTypes.array.isRequired,
   lowResImages: PropTypes.array.isRequired,
   timeoutDuration: PropTypes.number,
   transitionDuration: PropTypes.number
 };
 
-export default ImageLoader;
+export default ImageSlider;

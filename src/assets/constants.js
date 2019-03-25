@@ -1,4 +1,7 @@
-'use strict'
+/**
+ * simple-image-slider\src\assets\constants.js
+ * @author <ericwaidesign@gmail.com>
+ */
 
 module.exports = {
 

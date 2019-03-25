@@ -1,0 +1,13 @@
+/**
+ * simple-image-slider\examples\libs\assets\css\index.css
+ * @author <ericwaidesign@gmail.com>
+ */
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden; 
+    overflow-x: hidden; 
+    background-color: rgb(240, 240, 241);
+  }
+  
