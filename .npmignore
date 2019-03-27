@@ -1,0 +1,8 @@
+# simple-image-slider\.npmignore
+# omitted following files and directories from the published package
+
+src
+examples
+.babelrc
+.gitignore
+webpack.config.js
