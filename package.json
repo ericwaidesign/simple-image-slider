@@ -2,13 +2,13 @@
   "name": "simple-image-slider",
   "version": "1.0.1",
   "description": "",
+  "main": "src/simple-image-slider.js",
+  "license": "ISC",
   "author": {
     "name": "Eric Wai",
     "email": "ericwaidesign@gmail.com",
     "url": "https://ericwaidesign.com"
   },
-  "main": "src/simple-image-slider.js",
-  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/ericwaidesign/simple-image-slider"
@@ -16,7 +16,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
-    "transpile": "babel src -d dist --copy-files"
+    "transpile": "babel src -d dist --copy-files",
+    "prepublishOnly": "npm run transpile"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
