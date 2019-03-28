@@ -1,14 +1,14 @@
 {
   "name": "simple-image-slider",
   "version": "1.0.1",
-  "description": "",
-  "main": "src/simple-image-slider.js",
-  "license": "ISC",
+  "description": "https://www.npmjs.com/package/simple-image-slider",
+  "main": "dist/index.js",
   "author": {
     "name": "Eric Wai",
     "email": "ericwaidesign@gmail.com",
     "url": "https://ericwaidesign.com"
   },
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/ericwaidesign/simple-image-slider"
