@@ -159,7 +159,7 @@ class SimpleImageSlider extends Component {
  * @description Default static properties (props) values.
  */
 SimpleImageSlider.defaultProps = {
-  data: PropTypes.shape({
+  params: PropTypes.shape({
     timeoutDuration: Constants.FIVE_THOUSANDS_MILLISECS,
     transitionDuration: Constants.THOUSAND_MILLISECS
   })
@@ -172,7 +172,7 @@ SimpleImageSlider.defaultProps = {
  * class.
  */
 SimpleImageSlider.propTypes = {
-  data: PropTypes.shape({
+  params: PropTypes.shape({
     highResImages: PropTypes.array.isRequired,
     lowResImages: PropTypes.array.isRequired,
     timeoutDuration: PropTypes.number,
