@@ -1,5 +1,5 @@
 /**
- * simple-image-slider\src\assets\constants.js
+ * simple-image-slider
  * @author <ericwaidesign@gmail.com>
  */
 

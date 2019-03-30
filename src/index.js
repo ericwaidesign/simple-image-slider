@@ -1,5 +1,5 @@
 /**
- * simple-image-slider\src\index.js
+ * simple-image-slider
  * @author <ericwaidesign@gmail.com>
  */
 
@@ -12,7 +12,7 @@ import './assets/css/styles.css';
  * @description This class loads the given images and apply 
  * cross fade transition effect between photos.
  */
-class ImageSlider extends Component {
+class SimpleImageSlider extends Component {
 
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class ImageSlider extends Component {
   componentDidMount() {
     this.timeout = setTimeout(
       () => this.initialTransition(),
-      this.props.timeoutDuration
+      this.props.params.timeoutDuration
     );
   }
 
@@ -75,14 +75,14 @@ class ImageSlider extends Component {
 
       this.timeout = setTimeout(
         () => this.initialTransition(),
-        this.props.timeoutDuration
+        this.props.params.timeoutDuration
       );
 
       this.setState({
         highResImages: newHighResImages,
         lowResImages: newLowResImages
       });
-    }, this.props.timeoutDuration);
+    }, this.props.params.timeoutDuration);
   }
 
   /**
@@ -93,7 +93,7 @@ class ImageSlider extends Component {
    * @param {*} opacity the opacity value to be set.
    */
   setTransitionStyles(lastImageContainer, opacity) {
-    lastImageContainer.style.transition = `all ${this.props.transitionDuration / Constants.THOUSAND_MILLISECS}s`;
+    lastImageContainer.style.transition = `all ${this.props.params.transitionDuration / Constants.THOUSAND_MILLISECS}s`;
     lastImageContainer.style.opacity = opacity;
   }
 
@@ -103,11 +103,11 @@ class ImageSlider extends Component {
    */
   setState() {
     if (this.state.highResImages.length === 0) {
-      this.state.highResImages = this.props.highResImages;
+      this.state.highResImages = this.props.params.highResImages;
       console.log(this.state.highResImages);
     }
     if (this.state.lowResImages.length === 0) {
-      this.state.lowResImages = this.props.lowResImages;
+      this.state.lowResImages = this.props.params.lowResImages;
       console.log(this.state.lowResImages);
     }
   }
@@ -158,9 +158,11 @@ class ImageSlider extends Component {
 /**
  * @description Default static properties (props) values.
  */
-ImageSlider.defaultProps = {
-  timeoutDuration: Constants.FIVE_THOUSANDS_MILLISECS,
-  transitionDuration: Constants.THOUSAND_MILLISECS
+SimpleImageSlider.defaultProps = {
+  data: PropTypes.shape({
+    timeoutDuration: Constants.FIVE_THOUSANDS_MILLISECS,
+    transitionDuration: Constants.THOUSAND_MILLISECS
+  })
 };
 
 /**
@@ -169,11 +171,13 @@ ImageSlider.defaultProps = {
  * static properties can be accessed without instantiate the 
  * class.
  */
-ImageSlider.propTypes = {
-  highResImages: PropTypes.array.isRequired,
-  lowResImages: PropTypes.array.isRequired,
-  timeoutDuration: PropTypes.number,
-  transitionDuration: PropTypes.number
+SimpleImageSlider.propTypes = {
+  data: PropTypes.shape({
+    highResImages: PropTypes.array.isRequired,
+    lowResImages: PropTypes.array.isRequired,
+    timeoutDuration: PropTypes.number,
+    transitionDuration: PropTypes.number
+  })
 };
 
-export default ImageSlider;
+export default SimpleImageSlider;

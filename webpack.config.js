@@ -1,5 +1,5 @@
 /**
- * simple-image-slider\webpack.config.js
+ * simple-image-slider
  * @author <ericwaidesign@gmail.com>
  */
 

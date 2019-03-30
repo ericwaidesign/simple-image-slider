@@ -1,5 +1,5 @@
 /**
- * simple-image-slider\examples\src\app.js
+ * simple-image-slider
  * @author <ericwaidesign@gmail.com>
  */
 
@@ -10,11 +10,25 @@ import SimpleImageSlider from "../../src";
 
 class App extends Component {
     render() {
-        const highResImages = [require('./assets/images/goldfish.jpg')];
-        const lowResImages = [require('./assets/images/lowRes_goldfish.jpg')];
+        const params = {
+            // array of high resolution images
+            highResImages: [
+                require('./assets/images/highRes/goldfish.jpg'), 
+                require('./assets/images/highRes/goldfishB.jpg')
+            ],
+            // array of low resolution images
+            lowResImages: [
+                require('./assets/images/lowRes/lowRes_goldfish.jpg'),
+                require('./assets/images/lowRes/lowRes_goldfishB.jpg')
+            ], 
+            // 5000ms is default
+            timeoutDuration: 5000, 
+            // 1000ms is default
+            transitionDuration: 1000 
+        };
 
         return (
-            <SimpleImageSlider highResImages={highResImages} lowResImages={lowResImages} />
+            <SimpleImageSlider params={params} />
         );
     }
 }
