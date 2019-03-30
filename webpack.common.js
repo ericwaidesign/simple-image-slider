@@ -15,7 +15,9 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: [
+                    /\.(js|jsx)$/
+                ],
                 use: "babel-loader",
                 exclude: /node_modules/
             },
@@ -24,12 +26,12 @@ module.exports = {
                 use: ["style-loader", "css-loader"]
             },
             {
-                test: /\.jpg$/,
-                use: ["file-loader"]
-            },
-            {
                 test: /\.(html)$/,
                 use: ["html-loader"]
+            },
+            {
+                test: /\.jpg$/, 
+                use: ['ignore-loader']
             }
         ]
     },
