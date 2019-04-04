@@ -5,13 +5,17 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const htmlWebpackPlugin = new HtmlWebpackPlugin({
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: path.join(__dirname, "./examples/src/index.html"),
     filename: "index.html"
-});
+})
 
 module.exports = {
     entry: path.join(__dirname, "./examples/src/app.js"),
+    output: {
+        filename: 'index.js',
+        path: path.resolve(__dirname, 'dist')
+    },
     module: {
         rules: [
             {
@@ -30,12 +34,14 @@ module.exports = {
                 use: ["html-loader"]
             },
             {
-                test: /\.jpg$/, 
+                test: /\.jpg$/,
                 use: ['ignore-loader']
             }
         ]
     },
-    plugins: [htmlWebpackPlugin],
+    plugins: [
+        HtmlWebpackPluginConfig
+    ],
     resolve: {
         extensions: [".js", ".jsx"]
     }

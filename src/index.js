@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Constants from './assets/constants';
+import ImgCreator from 'simple-img-creator';
 import './assets/css/styles.css';
 
 /**
@@ -18,6 +19,7 @@ class SimpleImageSlider extends Component {
     super(props);
 
     this.state = {
+      uniqueImgNames: [],
       highResImages: [],
       lowResImages: [],
       lowResCssClass: Constants.OPACITY_ONE
@@ -54,6 +56,7 @@ class SimpleImageSlider extends Component {
     // clear the timeout set previously
     clearTimeout(this.timeout);
 
+    const uniqueImgNames = this.state.uniqueImgNames;
     const highResImages = this.state.highResImages;
     const lowResImages = this.state.lowResImages;
     const numOfImages = highResImages.length;
@@ -63,6 +66,8 @@ class SimpleImageSlider extends Component {
     const lastImageContainer = imageContainerElement.children[numOfImages - Constants.ONE];
 
     // Move the 1st item in the array to the last place.
+    uniqueImgNames.push(uniqueImgNames.shift());
+    const newUniqueImgNames = uniqueImgNames.slice();
     highResImages.push(highResImages.shift());
     const newHighResImages = highResImages.slice();
     lowResImages.push(lowResImages.shift());
@@ -79,6 +84,7 @@ class SimpleImageSlider extends Component {
       );
 
       this.setState({
+        uniqueImgNames: newUniqueImgNames,
         highResImages: newHighResImages,
         lowResImages: newLowResImages
       });
@@ -88,9 +94,9 @@ class SimpleImageSlider extends Component {
   /**
    * @description Set the styles for the given DOM element 
    * (lastImageContainer).
-   * @param {*} lastImageContainer the DOM element that 
+   * @param {HTMLElement} lastImageContainer the DOM element that 
    * contains the last set of images in the container.
-   * @param {*} opacity the opacity value to be set.
+   * @param {string} opacity the opacity value to be set.
    */
   setTransitionStyles(lastImageContainer, opacity) {
     lastImageContainer.style.transition = `all ${this.props.params.transitionDuration / Constants.THOUSAND_MILLISECS}s`;
@@ -98,52 +104,43 @@ class SimpleImageSlider extends Component {
   }
 
   /**
-   * @description Update state with the data from the creation 
-   * parameters (props) passed during instantiation.
+   * @description Update state with the data from parameters 
+   * (props) passed during instantiation.
    */
   setState() {
     if (this.state.highResImages.length === 0) {
+      this.state.uniqueImgNames = this.props.params.uniqueImgNames;
       this.state.highResImages = this.props.params.highResImages;
-      console.log(this.state.highResImages);
-    }
-    if (this.state.lowResImages.length === 0) {
       this.state.lowResImages = this.props.params.lowResImages;
-      console.log(this.state.lowResImages);
     }
   }
 
   /**
-   * @description Output each set of images. Each set include a 
-   * low resolution image for used as placeholder and a high 
-   * resolution image. The opacity of the low resolution image 
-   * will be set to 0 upon onLoad of the high resolution image. 
+   * @description Output each set of low res image and high res image
+   * with the use of Simple-Img-Creator component. When the high res 
+   * image on loaded, the opacity of the low res image change from 1 
+   * to 0.
    */
   render() {
     this.setState();
 
+    const uniqueImgNames = this.state.uniqueImgNames;
     const highResImages = this.state.highResImages;
     const lowResImages = this.state.lowResImages;
 
     /* Output each set of images */
     var imageArray = highResImages.map((highResImage, index) => {
+      const params = {
+        // name of the img
+        uniqueImgName: uniqueImgNames[index],
+        // path to the low resolution image
+        lowResImgUrl: lowResImages[index],
+        // path to the high resolution image
+        highResImgUrl: highResImage
+      }
+
       return (
-        <div 
-          id={`${Constants.IMAGE_CONTAINER}${index}`}
-          key={`${Constants.IMAGE_CONTAINER}${index}`}>
-          {/* Low res placeholder image */}
-          <img
-            id={`${Constants.LOW_RES}${index}`}
-            className={`${Constants.IMAGE} ${this.state.lowResCssClass}`}
-            src={lowResImages[index]}
-          />
-          {/* High res image */}
-          <img
-            id={`${Constants.HIGH_RES}${index}`}
-            className={Constants.IMAGE}
-            src={highResImage}
-            onLoad={this.setLowResImgOpacityTo0}
-          />
-        </div>
+        <ImgCreator params={params} />
       )
     });
 
@@ -165,12 +162,6 @@ SimpleImageSlider.defaultProps = {
   })
 };
 
-/**
- * @description Type checks to validate the static properties 
- * (props) which will be used by utility functions. These 
- * static properties can be accessed without instantiate the 
- * class.
- */
 SimpleImageSlider.propTypes = {
   params: PropTypes.shape({
     highResImages: PropTypes.array.isRequired,

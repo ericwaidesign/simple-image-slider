@@ -1,23 +1,21 @@
 {
   "name": "simple-image-slider",
-  "version": "1.0.2",
-  "description": "https://www.npmjs.com/package/simple-image-slider",
+  "version": "1.0.3",
   "main": "dist/index.js",
+  "license": "ISC",
   "author": {
     "name": "Eric Wai",
     "email": "ericwaidesign@gmail.com",
     "url": "https://ericwaidesign.com"
-  },
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ericwaidesign/simple-image-slider"
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "transpile": "babel src -d dist --copy-files",
     "prepublishOnly": "npm run transpile"
+  },
+  "dependencies": {
+    "simple-img-creator": "1.0.0"
   },
   "peerDependencies": {
     "react": "^16.3.0",

@@ -5,12 +5,16 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './assets/css/index.css';
+import './assets/css/styles.css';
 import SimpleImageSlider from "../../src";
 
 class App extends Component {
     render() {
         const params = {
+            uniqueImgNames: [
+                'goldfish',
+                'goldfishB'
+            ],
             // array of high resolution images
             highResImages: [
                 require('./assets/images/highRes/goldfish.jpg'), 
