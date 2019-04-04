@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
+    "gp": "webpack-dev-server --host 0.0.0.0 --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "transpile": "babel src -d dist --copy-files",
     "prepublishOnly": "npm run transpile"
