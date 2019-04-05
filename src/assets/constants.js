@@ -18,6 +18,7 @@ module.exports = {
 	HIGH_RES: 'highRes-',
 	IMAGE_CONTAINER: 'imageContainer',
 	IMAGE_LOADER_CONTAINER: 'imageLoaderContainer',
+	SIMPLE_IMAGE_SLIDER: 'simpleImageSlider',
 	IMAGE: 'simpleImageSlider-image',
 	OPACITY_ZERO: 'simpleImageSlider-opacity-0',
 	OPACITY_ONE: 'simpleImageSlider-opacity_1'

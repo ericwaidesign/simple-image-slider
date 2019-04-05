@@ -16,13 +16,12 @@ module.exports = {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist')
     },
+    watch: true,
     module: {
         rules: [
             {
-                test: [
-                    /\.(js|jsx)$/
-                ],
-                use: "babel-loader",
+                test: /\.(js|jsx)$/,
+                use: ["babel-loader"],
                 exclude: /node_modules/
             },
             {

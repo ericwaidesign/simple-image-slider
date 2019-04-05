@@ -21,8 +21,7 @@ class SimpleImageSlider extends Component {
     this.state = {
       uniqueImgNames: [],
       highResImages: [],
-      lowResImages: [],
-      lowResCssClass: Constants.OPACITY_ONE
+      lowResImages: []
     };
   }
 
@@ -33,6 +32,7 @@ class SimpleImageSlider extends Component {
    * the given interval of time.
    */
   componentDidMount() {
+    this.setInitialOpacity();
     this.timeout = setTimeout(
       () => this.initialTransition(),
       this.props.params.timeoutDuration
@@ -40,13 +40,24 @@ class SimpleImageSlider extends Component {
   }
 
   /**
-   * @description instance property that sets the CSS class name 
-   * in state to trigger a re-render to update a DOM element's 
-   * opacity setting to 0.
+   * @description Set the opacity all the sets of images except
+   * for the first set to 0 opacity.
    */
-  setLowResImgOpacityTo0 = () => {
-    // Set class name to change the DOM element opacity to 0.
-    this.setState({ lowResCssClass: Constants.OPACITY_ZERO });
+  setInitialOpacity() {
+    const nodes = this.getImageSetNodes();
+    for(var i = 1; i < nodes.length; i++) {
+      this.setOpacity(nodes[i], Constants.STRING_ZERO);
+    }
+  }
+
+  /**
+   * @description return a HTMLCollection of nodes from the div
+   * with the id "SimpleImageSlider".
+   * @returns {HTMLCollection} 
+   */
+  getImageSetNodes() {
+    const imageContainerElement = document.getElementById(Constants.SIMPLE_IMAGE_SLIDER);
+    return imageContainerElement.children;
   }
 
   /**
@@ -62,8 +73,8 @@ class SimpleImageSlider extends Component {
     const numOfImages = highResImages.length;
 
     // Retrieve the last set of images 
-    const imageContainerElement = document.getElementById(Constants.IMAGE_LOADER_CONTAINER);
-    const lastImageContainer = imageContainerElement.children[numOfImages - Constants.ONE];
+    const imageSetNodes = this.getImageSetNodes();
+    const lastImageContainer = imageSetNodes[numOfImages - Constants.ONE];
 
     // Move the 1st item in the array to the last place.
     uniqueImgNames.push(uniqueImgNames.shift());
@@ -73,10 +84,12 @@ class SimpleImageSlider extends Component {
     lowResImages.push(lowResImages.shift());
     const newLowResImages = lowResImages.slice();
 
-    this.setTransitionStyles(lastImageContainer, Constants.STRING_ZERO);
+    this.setTransition(lastImageContainer);
+    this.setOpacity(lastImageContainer, Constants.STRING_ZERO);
 
     setTimeout(() => {
-      this.setTransitionStyles(lastImageContainer, Constants.STRING_ONE);
+      this.setTransition(lastImageContainer);
+      this.setOpacity(lastImageContainer, Constants.STRING_ONE);
 
       this.timeout = setTimeout(
         () => this.initialTransition(),
@@ -92,15 +105,22 @@ class SimpleImageSlider extends Component {
   }
 
   /**
-   * @description Set the styles for the given DOM element 
-   * (lastImageContainer).
-   * @param {HTMLElement} lastImageContainer the DOM element that 
-   * contains the last set of images in the container.
+   * @description Set the transition for the given node.
+   * @param {HTMLElement} node the DOM element that 
+   * contains the set of images in the container.
+   */
+  setTransition(node) {
+    node.style.transition = `all ${this.props.params.transitionDuration / Constants.THOUSAND_MILLISECS}s`;
+  }
+
+  /**
+   * @description Set the opacity of the given node to 0.
+   * @param {HTMLElement} node the DOM element that 
+   * contains the set of images in the container.
    * @param {string} opacity the opacity value to be set.
    */
-  setTransitionStyles(lastImageContainer, opacity) {
-    lastImageContainer.style.transition = `all ${this.props.params.transitionDuration / Constants.THOUSAND_MILLISECS}s`;
-    lastImageContainer.style.opacity = opacity;
+  setOpacity(node, opacity) {
+    node.style.opacity = opacity;
   }
 
   /**
@@ -129,7 +149,7 @@ class SimpleImageSlider extends Component {
     const lowResImages = this.state.lowResImages;
 
     /* Output each set of images */
-    var imageArray = highResImages.map((highResImage, index) => {
+    const imageArray = highResImages.map((highResImage, index) => {
       const params = {
         // name of the img
         uniqueImgName: uniqueImgNames[index],
@@ -140,12 +160,14 @@ class SimpleImageSlider extends Component {
       }
 
       return (
-        <ImgCreator params={params} />
+        <div key={index}>
+          <ImgCreator params={params} />
+        </div>
       )
     });
 
     return (
-      <div id={Constants.IMAGE_LOADER_CONTAINER}>
+      <div id={Constants.SIMPLE_IMAGE_SLIDER}>
         {imageArray}
       </div>
     );

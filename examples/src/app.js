@@ -17,18 +17,18 @@ class App extends Component {
             ],
             // array of high resolution images
             highResImages: [
-                require('./assets/images/highRes/goldfish.jpg'), 
-                require('./assets/images/highRes/goldfishB.jpg')
+                './examples/src/assets/images/goldfish.jpg',
+                './examples/src/assets/images/goldfishB.jpg'
             ],
             // array of low resolution images
             lowResImages: [
-                require('./assets/images/lowRes/lowRes_goldfish.jpg'),
-                require('./assets/images/lowRes/lowRes_goldfishB.jpg')
-            ], 
+                './examples/src/assets/images/lowRes_goldfish.jpg',
+                './examples/src/assets/images/lowRes_goldfishB.jpg'
+            ],
             // 5000ms is default
-            timeoutDuration: 5000, 
+            timeoutDuration: 5000,
             // 1000ms is default
-            transitionDuration: 1000 
+            transitionDuration: 1000
         };
 
         return (
