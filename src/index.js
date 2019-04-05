@@ -43,7 +43,7 @@ class SimpleImageSlider extends Component {
    * @description Set the opacity all the sets of images except
    * for the first set to 0 opacity.
    */
-  setInitialOpacity() {
+  setInitialOpacity = () => {
     const nodes = this.getImageSetNodes();
     for(var i = 1; i < nodes.length; i++) {
       this.setOpacity(nodes[i], Constants.STRING_ZERO);
@@ -51,19 +51,9 @@ class SimpleImageSlider extends Component {
   }
 
   /**
-   * @description return a HTMLCollection of nodes from the div
-   * with the id "SimpleImageSlider".
-   * @returns {HTMLCollection} 
-   */
-  getImageSetNodes() {
-    const imageContainerElement = document.getElementById(Constants.SIMPLE_IMAGE_SLIDER);
-    return imageContainerElement.children;
-  }
-
-  /**
    * @description Initialize the cross fade transition.
    */
-  initialTransition() {
+  initialTransition = () => {
     // clear the timeout set previously
     clearTimeout(this.timeout);
 
@@ -109,7 +99,7 @@ class SimpleImageSlider extends Component {
    * @param {HTMLElement} node the DOM element that 
    * contains the set of images in the container.
    */
-  setTransition(node) {
+  setTransition = node => {
     node.style.transition = `all ${this.props.params.transitionDuration / Constants.THOUSAND_MILLISECS}s`;
   }
 
@@ -119,7 +109,7 @@ class SimpleImageSlider extends Component {
    * contains the set of images in the container.
    * @param {string} opacity the opacity value to be set.
    */
-  setOpacity(node, opacity) {
+  setOpacity = (node, opacity) => {
     node.style.opacity = opacity;
   }
 
@@ -127,12 +117,22 @@ class SimpleImageSlider extends Component {
    * @description Update state with the data from parameters 
    * (props) passed during instantiation.
    */
-  setState() {
+  setState = () => {
     if (this.state.highResImages.length === 0) {
       this.state.uniqueImgNames = this.props.params.uniqueImgNames;
       this.state.highResImages = this.props.params.highResImages;
       this.state.lowResImages = this.props.params.lowResImages;
     }
+  }
+
+  /**
+   * @description return a HTMLCollection of nodes from the div
+   * with the id "SimpleImageSlider".
+   * @returns {HTMLCollection} 
+   */
+  getImageSetNodes = () => {
+    const imageContainerElement = document.getElementById(Constants.SIMPLE_IMAGE_SLIDER);
+    return imageContainerElement.children;
   }
 
   /**
