@@ -3,31 +3,42 @@
  * @author <ericwaidesign@gmail.com>
  */
 
+'use strict'
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './assets/css/styles.css';
+import Image from '../../src/assets/Image';
 import SimpleImageSlider from "../../src";
 
 class App extends Component {
     render() {
+        const images = [];
+        images.push(new Image(
+            // The file name of the high res image without extension.
+            'goldfish',
+            // The file path of the high res image.
+            './examples/src/assets/images/goldfish.jpg',
+            // The file name of the low res image without extension.
+            'lowRes_goldfish',
+            // The file path of the low res image.
+            './examples/src/assets/images/lowRes_goldfish.jpg'
+        ));
+        images.push(new Image(
+            'goldfishB',
+            './examples/src/assets/images/goldfishB.jpg',
+            'lowRes_goldfishB',
+            './examples/src/assets/images/goldfishB.jpg'
+        ));
+
         const params = {
-            uniqueImgNames: [
-                'goldfish',
-                'goldfishB'
-            ],
-            // array of high resolution images
-            highResImages: [
-                './examples/src/assets/images/goldfish.jpg',
-                './examples/src/assets/images/goldfishB.jpg'
-            ],
-            // array of low resolution images
-            lowResImages: [
-                './examples/src/assets/images/lowRes_goldfish.jpg',
-                './examples/src/assets/images/lowRes_goldfishB.jpg'
-            ],
-            // 5000ms is default
+            // array of Images
+            images: iamges,
+            // The duration before a transition ocurred,
+            //  optional, 5000ms is default
             timeoutDuration: 5000,
-            // 1000ms is default
+            // The duration of the transition
+            //  optional, 1000ms is default
             transitionDuration: 1000
         };
 
