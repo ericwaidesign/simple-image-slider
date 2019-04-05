@@ -1,12 +1,16 @@
 {
   "name": "simple-image-slider",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.js",
   "license": "ISC",
   "author": {
     "name": "Eric Wai",
     "email": "ericwaidesign@gmail.com",
     "url": "https://ericwaidesign.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericwaidesign/simple-image-slider"
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
