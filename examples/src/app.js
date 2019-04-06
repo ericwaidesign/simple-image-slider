@@ -13,27 +13,28 @@ import SimpleImageSlider from "../../src";
 
 class App extends Component {
     render() {
-        const images = [];
-        images.push(new Image(
-            // The file name of the high res image without extension.
-            'goldfish',
-            // The file path of the high res image.
-            './examples/src/assets/images/goldfish.jpg',
-            // The file name of the low res image without extension.
-            'lowRes_goldfish',
-            // The file path of the low res image.
-            './examples/src/assets/images/lowRes_goldfish.jpg'
-        ));
-        images.push(new Image(
-            'goldfishB',
-            './examples/src/assets/images/goldfishB.jpg',
-            'lowRes_goldfishB',
-            './examples/src/assets/images/goldfishB.jpg'
-        ));
+        const newImages = [
+            new Image(
+                // The file name of the high res image without extension.
+                'goldfish',
+                // The file path of the high res image.
+                './examples/src/assets/images/goldfish.jpg',
+                // The file name of the low res image without extension.
+                'lowRes_goldfish',
+                // The file path of the low res image.
+                './examples/src/assets/images/lowRes_goldfish.jpg'
+            ),
+            new Image(
+                'goldfishB',
+                './examples/src/assets/images/goldfishB.jpg',
+                'lowRes_goldfishB',
+                './examples/src/assets/images/goldfishB.jpg'
+            )
+        ];
 
         const params = {
             // array of Images
-            images: iamges,
+            images: newImages,
             // The duration before a transition ocurred,
             //  optional, 5000ms is default
             timeoutDuration: 5000,

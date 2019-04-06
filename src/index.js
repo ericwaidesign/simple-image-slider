@@ -3,10 +3,13 @@
  * @author <ericwaidesign@gmail.com>
  */
 
+'use strict'
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Constants from './assets/constants';
 import ImgCreator from 'simple-img-creator';
+import Image from './assets/Image';
 import './assets/css/styles.css';
 
 /**
@@ -19,9 +22,7 @@ class SimpleImageSlider extends Component {
         super(props);
 
         this.state = {
-            uniqueImgNames: [],
-            highResImages: [],
-            lowResImages: []
+            images:[]
         };
     }
 
@@ -57,22 +58,16 @@ class SimpleImageSlider extends Component {
         // clear the timeout set previously
         clearTimeout(this.timeout);
 
-        const uniqueImgNames = this.state.uniqueImgNames;
-        const highResImages = this.state.highResImages;
-        const lowResImages = this.state.lowResImages;
-        const numOfImages = highResImages.length;
+        const images = this.state.images;
+        const numOfImages = images.length;
 
         // Retrieve the last set of images
         const imageSetNodes = this.getImageSetNodes();
         const lastImageContainer = imageSetNodes[numOfImages - Constants.ONE];
 
         // Move the 1st item in the array to the last place.
-        uniqueImgNames.push(uniqueImgNames.shift());
-        const newUniqueImgNames = uniqueImgNames.slice();
-        highResImages.push(highResImages.shift());
-        const newHighResImages = highResImages.slice();
-        lowResImages.push(lowResImages.shift());
-        const newLowResImages = lowResImages.slice();
+        images.push(images.shift());
+        const reorderedImages = images.slice();
 
         this.setTransition(lastImageContainer);
         this.setOpacity(lastImageContainer, Constants.STRING_ZERO);
@@ -87,9 +82,7 @@ class SimpleImageSlider extends Component {
             );
 
             this.setState({
-                uniqueImgNames: newUniqueImgNames,
-                highResImages: newHighResImages,
-                lowResImages: newLowResImages
+                images: reorderedImages,
             });
         }, this.props.params.timeoutDuration);
     }
@@ -118,10 +111,8 @@ class SimpleImageSlider extends Component {
      * (props) passed during instantiation.
      */
     setState = () => {
-        if (this.state.highResImages.length === 0) {
-            this.state.uniqueImgNames = this.props.params.uniqueImgNames;
-            this.state.highResImages = this.props.params.highResImages;
-            this.state.lowResImages = this.props.params.lowResImages;
+        if (this.state.images.length === 0) {
+            this.state.images = this.props.params.images;
         }
     }
 
@@ -144,24 +135,14 @@ class SimpleImageSlider extends Component {
     render() {
         this.setState();
 
-        const uniqueImgNames = this.state.uniqueImgNames;
-        const highResImages = this.state.highResImages;
-        const lowResImages = this.state.lowResImages;
+        const images = this.state.images;
 
         /* Output each set of images */
-        const imageArray = highResImages.map((highResImage, index) => {
-            const params = {
-                // name of the img
-                uniqueImgName: uniqueImgNames[index],
-                // path to the low resolution image
-                lowResImgUrl: lowResImages[index],
-                // path to the high resolution image
-                highResImgUrl: highResImage
-            }
-
+        const imageArray = images.map((image, index) => {
+            console.log(image instanceof Image);
             return (
                 <div key={index}>
-                    <ImgCreator params={params} />
+                    <ImgCreator image={image} />
                 </div>
             )
         });
@@ -185,26 +166,26 @@ SimpleImageSlider.defaultProps = {
 };
 
 SimpleImageSlider.propTypes = {
-    params:
-        PropTypes.arrayOf(
+    params: PropTypes.shape({
+        images: PropTypes.arrayOf(
             PropTypes.shape({
                 // The file name of the high res image without extension.
-                highRestFileName: Proptypes.string.isRequired,
+                highResFileName: PropTypes.string.isRequired,
                 // The file path of the high res image.
-                highResPath: Proptypes.string.isRequired,
+                highResPath: PropTypes.string.isRequired,
                 // The file name of the low res image without extension.
-                lowResFileName: Proptypes.string.isRequired,
+                lowResFileName: PropTypes.string.isRequired,
                 // The file path of the low res image.
-                lowResPath: Proptypes.string.isRequired
+                lowResPath: PropTypes.string.isRequired
             })
         ).isRequired,
-    // The duration before a transition ocurred,
-    //  optional, 5000ms is default
-    timeoutDuration: PropTypes.number,
-    // The duration of the transition
-    //  optional, 1000ms is default
-    transitionDuration: PropTypes.number
-})
+        // The duration before a transition ocurred,
+        //  optional, 5000ms is default
+        timeoutDuration: PropTypes.number,
+        // The duration of the transition
+        //  optional, 1000ms is default
+        transitionDuration: PropTypes.number
+    })
 };
 
 export default SimpleImageSlider;
