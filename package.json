@@ -20,7 +20,7 @@
     "prepublishOnly": "npm run transpile"
   },
   "dependencies": {
-    "simple-img-creator": "1.0.3"
+    "simple-img-creator": "1.0.4"
   },
   "peerDependencies": {
     "react": "^16.3.0",

@@ -22,7 +22,7 @@ class SimpleImageSlider extends Component {
         super(props);
 
         this.state = {
-            images:[]
+            images: []
         };
     }
 
@@ -139,7 +139,6 @@ class SimpleImageSlider extends Component {
 
         /* Output each set of images */
         const imageArray = images.map((image, index) => {
-            console.log(image instanceof Image);
             return (
                 <div key={index}>
                     <ImgCreator image={image} />
