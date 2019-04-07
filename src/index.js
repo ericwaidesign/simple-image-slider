@@ -9,7 +9,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Constants from './assets/constants';
 import ImgCreator from 'simple-img-creator';
-import Image from './assets/Image';
 import './assets/css/styles.css';
 
 /**
