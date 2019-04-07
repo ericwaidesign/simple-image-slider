@@ -126,6 +126,29 @@ class SimpleImageSlider extends Component {
     }
 
     /**
+     * @description return an array of ImgCreator elements to be rendered.
+     * @returns {(Symbol(react.element)|array)}
+     */
+    renderImgCreator = () => {
+        if (this.state.images.length !== 0) {
+            let imageArray = [];
+
+            if (this.state.images) {
+                /* Output each set of images */
+                imageArray = this.state.images.map((image, index) => {
+                    return (
+                        <div key={index}>
+                            <ImgCreator image={image} />
+                        </div>
+                    )
+                });
+            }
+
+            return imageArray;
+        }
+    }
+
+    /**
      * @description Output each set of low res image and high res image
      * with the use of Simple-Img-Creator component. When the high res
      * image on loaded, the opacity of the low res image change from 1
@@ -134,22 +157,9 @@ class SimpleImageSlider extends Component {
     render() {
         this.setState();
 
-        let imageArray = [];
-        
-        if (this.state.images) {
-            /* Output each set of images */
-            imageArray = this.state.images.map((image, index) => {
-                return (
-                    <div key={index}>
-                        <ImgCreator image={image} />
-                    </div>
-                )
-            });
-        }
-
         return (
             <div id={Constants.SIMPLE_IMAGE_SLIDER}>
-                {imageArray}
+                {this.renderImgCreator()}
             </div>
         );
     }
