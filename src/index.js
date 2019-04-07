@@ -134,16 +134,18 @@ class SimpleImageSlider extends Component {
     render() {
         this.setState();
 
-        const images = this.state.images;
-
-        /* Output each set of images */
-        const imageArray = images.map((image, index) => {
-            return (
-                <div key={index}>
-                    <ImgCreator image={image} />
-                </div>
-            )
-        });
+        let imageArray = [];
+        
+        if (this.state.images) {
+            /* Output each set of images */
+            imageArray = this.state.images.map((image, index) => {
+                return (
+                    <div key={index}>
+                        <ImgCreator image={image} />
+                    </div>
+                )
+            });
+        }
 
         return (
             <div id={Constants.SIMPLE_IMAGE_SLIDER}>
